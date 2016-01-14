@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.BepHistoryDTO" optimistic-lock="version" table="bep_history">
+    <id name="bepHistoryId" type="java.lang.Integer">
+      <column name="bep_history_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="DTO.BepDTO" fetch="select" name="bep">
+      <column name="bep_id"/>
+    </many-to-one>
+    <property name="monAnName" type="string">
+      <column name="MonAn_name"/>
+    </property>
+    <property name="monAnQuantity" type="java.lang.Short">
+      <column name="MonAn_quantity"/>
+    </property>
+    <property name="monAnOrderTime" type="timestamp">
+      <column length="19" name="MonAn_OrderTime"/>
+    </property>
+    <property name="monAnCompleteTime" type="timestamp">
+      <column length="19" name="MonAn_CompleteTime"/>
+    </property>
+  </class>
+</hibernate-mapping>

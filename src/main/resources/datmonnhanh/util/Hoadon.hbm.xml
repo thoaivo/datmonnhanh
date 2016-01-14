@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.HoadonDTO" optimistic-lock="version" table="hoadon">
+    <id name="hoadonId" type="java.lang.Integer">
+      <column name="hoadon_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="DTO.BanDTO" fetch="select" name="ban">
+      <column name="ban_id"/>
+    </many-to-one>
+    <many-to-one class="DTO.DiadiemDTO" fetch="select" name="diadiem">
+      <column name="diadiem_id"/>
+    </many-to-one>
+    <property name="date" type="timestamp">
+      <column length="19" name="date"/>
+    </property>
+    <property name="totalPrice" type="java.lang.Integer">
+      <column name="TotalPrice"/>
+    </property>
+    <property name="money" type="java.lang.Integer">
+      <column name="money"/>
+    </property>
+    <property name="charge" type="java.lang.Integer">
+      <column name="charge"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="hoadonChitiets" table="hoadon_chitiet">
+      <key>
+        <column name="hoadon_id"/>
+      </key>
+      <one-to-many class="DTO.HoadonChitiet"/>
+    </set>
+  </class>
+</hibernate-mapping>

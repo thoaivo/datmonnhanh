@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.MenuDTO" optimistic-lock="version" table="menu">
+    <id name="menuId" type="java.lang.Integer">
+      <column name="menu_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="DTO.DiadiemDTO" fetch="select" name="diadiem">
+      <column name="diadiem_id"/>
+    </many-to-one>
+    <property name="name" type="string">
+      <column name="name"/>
+    </property>
+    <set fetch="select" inverse="true" lazy="true" name="menuChitiets" table="menu_chitiet">
+      <key>
+        <column name="menu_id"/>
+      </key>
+      <one-to-many class="DTO.MenuChitiet"/>
+    </set>
+  </class>
+</hibernate-mapping>

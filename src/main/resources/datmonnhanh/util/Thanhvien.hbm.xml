@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.ThanhvienDTO" optimistic-lock="version" table="thanhvien">
+    <id name="thanhvienId" type="java.lang.Integer">
+      <column name="thanhvien_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="DTO.DiadiemDTO" fetch="select" name="diadiem">
+      <column name="diadiem_id"/>
+    </many-to-one>
+    <property name="name" type="string">
+      <column name="name"/>
+    </property>
+    <property name="cmnd" type="string">
+      <column length="11" name="cmnd"/>
+    </property>
+    <property name="contry" type="string">
+      <column length="25" name="contry"/>
+    </property>
+    <property name="address" type="string">
+      <column name="address"/>
+    </property>
+    <property name="phone" type="string">
+      <column length="13" name="phone"/>
+    </property>
+    <property name="username" type="string">
+      <column length="50" name="username"/>
+    </property>
+    <property name="password" type="string">
+      <column length="32" name="password"/>
+    </property>
+    <property name="email" type="string">
+      <column name="email"/>
+    </property>
+    <property name="isApproved" type="java.lang.Boolean">
+      <column name="isApproved"/>
+    </property>
+  </class>
+</hibernate-mapping>

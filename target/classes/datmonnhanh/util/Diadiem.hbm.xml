@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.DiadiemDTO" optimistic-lock="version" table="diadiem">
+    <id name="diadiemId" type="java.lang.Integer">
+      <column name="diadiem_id"/>
+      <generator class="identity"/>
+    </id>
+    <property name="owner_email" type="string">
+      <column name="owner_email"/>
+    </property>
+    <property name="owner_password" type="string">
+      <column name="owner_password"/>
+    </property>
+    <property name="name" type="string">
+      <column name="name"/>
+    </property>
+    <property name="address" type="string">
+      <column length="512" name="address"/>
+    </property>
+    <property name="phone" type="string">
+      <column length="13" name="phone"/>
+    </property>
+    <property name="description" type="string">
+      <column length="65535" name="description"/>
+    </property>
+<!--    <set fetch="select" inverse="true" lazy="false" name="menus" table="menu">
+      <key>
+        <column name="diadiem_id"/>
+      </key>
+      <one-to-many class="DTO.MenuDTO"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="false" name="hoadons" table="hoadon">
+      <key>
+        <column name="diadiem_id"/>
+      </key>
+      <one-to-many class="DTO.HoadonDTO"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="false" name="thanhviens" table="thanhvien">
+      <key>
+        <column name="diadiem_id"/>
+      </key>
+      <one-to-many class="DTO.ThanhvienDTO"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="false" name="beps" table="bep">
+      <key>
+        <column name="diadiem_id"/>
+      </key>
+      <one-to-many class="DTO.BepDTO"/>
+    </set>
+    <set fetch="select" inverse="true" lazy="false" name="bans" table="ban">
+      <key>
+        <column name="diadiem_id"/>
+      </key>
+      <one-to-many class="DTO.BanDTO"/>
+    </set>-->
+  </class>
+</hibernate-mapping>

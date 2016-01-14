@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Jan 13, 2016 10:56:58 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+  <class catalog="datmonnhanh" name="DTO.BepDTO" optimistic-lock="version" table="bep">
+    <id name="bepId" type="java.lang.Integer">
+      <column name="bep_id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="DTO.DiadiemDTO" fetch="select" name="diadiem">
+      <column name="diadiem_id"/>
+    </many-to-one>
+    <set fetch="select" inverse="true" lazy="true" name="bepHistories" table="bep_history">
+      <key>
+        <column name="bep_id"/>
+      </key>
+      <one-to-many class="DTO.BepHistoryDTO"/>
+    </set>
+  </class>
+</hibernate-mapping>
