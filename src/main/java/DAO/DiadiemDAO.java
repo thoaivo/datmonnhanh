@@ -36,14 +36,14 @@ public class DiadiemDAO {
         try {
             Criteria cr = session.createCriteria(DiadiemDTO.class);
             cr.add(Restrictions.eq("diadiemId", diadiem_id));
-            DiadiemDTO diadiem = null;
+            DiadiemDTO dto = null;
             if (cr.list().size() == 1) {
-                diadiem = (DiadiemDTO) cr.list().get(0);
+                dto = (DiadiemDTO) cr.list().get(0);
             } else {
                 return null;
             }
             session.getTransaction().commit();
-            return diadiem;
+            return dto;
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         } finally {
@@ -106,8 +106,8 @@ public class DiadiemDAO {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            DiadiemDTO diadiem = (DiadiemDTO) session.get(DiadiemDTO.class, diadiem_id);
-            session.delete(diadiem);
+            DiadiemDTO dto = (DiadiemDTO) session.get(DiadiemDTO.class, diadiem_id);
+            session.delete(dto);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
