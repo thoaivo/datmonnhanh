@@ -12,14 +12,16 @@ public class BepDTO  implements java.io.Serializable {
 
 
      private Integer bepId;
+     private String name;
      private DiadiemDTO diadiem;
      private Set bepHistories = new HashSet(0);
 
     public BepDTO() {
     }
 
-    public BepDTO(DiadiemDTO diadiem, Set bepHistories) {
+    public BepDTO(DiadiemDTO diadiem, String name, Set bepHistories) {
        this.diadiem = diadiem;
+       this.name = name;
        this.bepHistories = bepHistories;
     }
    
@@ -30,6 +32,15 @@ public class BepDTO  implements java.io.Serializable {
     public void setBepId(Integer bepId) {
         this.bepId = bepId;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     public DiadiemDTO getDiadiem() {
         return this.diadiem;
     }

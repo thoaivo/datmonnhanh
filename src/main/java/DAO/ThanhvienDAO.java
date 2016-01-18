@@ -1,25 +1,31 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DAO;
 
-import DTO.DiadiemDTO;
+import DTO.ThanhvienDTO;
 import datmonnhanh.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 
-public class DiadiemDAO {
-
-    public List<DiadiemDTO> getAllDiadiem() {
+/**
+ *
+ * @author Administrator
+ */
+public class ThanhvienDAO {
+    public List<ThanhvienDTO> getAllThanhvien() {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            String hql = "from diadiem";
+            String hql = "from thanhvien";
             Query q = session.createQuery(hql);
-            List<DiadiemDTO> resultList = q.list();
+            List<ThanhvienDTO> resultList = q.list();
             session.getTransaction().commit();
             return resultList;
         } catch (HibernateException e) {
@@ -30,15 +36,15 @@ public class DiadiemDAO {
         return null;
     }
 
-    public DiadiemDTO getDiadiemById(int diadiem_id) {
+    public ThanhvienDTO getThanhvienById(int thanhvien_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            Criteria cr = session.createCriteria(DiadiemDTO.class);
-            cr.add(Restrictions.eq("diadiemId", diadiem_id));
-            DiadiemDTO dto = null;
+            Criteria cr = session.createCriteria(ThanhvienDTO.class);
+            cr.add(Restrictions.eq("thanhvienId", thanhvien_id));
+            ThanhvienDTO dto = null;
             if (cr.list().size() == 1) {
-                dto = (DiadiemDTO) cr.list().get(0);
+                dto = (ThanhvienDTO) cr.list().get(0);
             } else {
                 return null;
             }
@@ -52,12 +58,12 @@ public class DiadiemDAO {
         return null;
     }
 
-    public boolean checkDiadiemOwnerEmail(String owner_email) {
+    public boolean checkThanhvienEmail(String email) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            Criteria cr = session.createCriteria(DiadiemDTO.class);
-            cr.add(Restrictions.eq("owner_email", owner_email));
+            Criteria cr = session.createCriteria(ThanhvienDTO.class);
+            cr.add(Restrictions.eq("email", email));
             boolean bool;
             if (cr.list().isEmpty()) {
                 session.getTransaction().commit();
@@ -72,13 +78,13 @@ public class DiadiemDAO {
         return false;
     }
 
-    public int addDiadiem(DiadiemDTO diadiemDTO) {
+    public int addThanhvien(ThanhvienDTO thanhvienDTO) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            int diadiemID = (Integer) session.save(diadiemDTO);
+            int thanhvienID = (Integer) session.save(thanhvienDTO);
             session.getTransaction().commit();
-            return diadiemID;
+            return thanhvienID;
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         } finally {
@@ -87,11 +93,11 @@ public class DiadiemDAO {
         return -1;
     }
 
-    public boolean updateDiadiem(DiadiemDTO diadiemDTO) {
+    public boolean updateThanhvien(ThanhvienDTO thanhvienDTO) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            session.update(diadiemDTO);
+            session.update(thanhvienDTO);
             session.getTransaction().commit();
             return true;
         } catch (HibernateException e) {
@@ -102,11 +108,11 @@ public class DiadiemDAO {
         return false;
     }
 
-    public boolean deleteDiadiem(int diadiem_id) {
+    public boolean deleteThanhvien(int thanhvien_id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         session.beginTransaction();
         try {
-            DiadiemDTO dto = (DiadiemDTO) session.get(DiadiemDTO.class, diadiem_id);
+            ThanhvienDTO dto = (ThanhvienDTO) session.get(ThanhvienDTO.class, thanhvien_id);
             session.delete(dto);
             session.getTransaction().commit();
             return true;

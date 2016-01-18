@@ -7,6 +7,9 @@
       <column name="bep_id"/>
       <generator class="identity"/>
     </id>
+    <property name="name" type="string">
+      <column name="name"/>
+    </property>
     <many-to-one class="DTO.DiadiemDTO" fetch="select" name="diadiem">
       <column name="diadiem_id"/>
     </many-to-one>
