@@ -5,8 +5,8 @@
  */
 package BUS;
 
-import DAO.DiadiemDAO;
-import DTO.DiadiemDTO;
+import DAO.BanDAO;
+import DTO.BanDTO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,14 +23,14 @@ import javax.ws.rs.core.Response;
  * @author Administrator
  */
 @Path("/")
-public class DiadiemBUS {
+public class BanBUS {
     @GET
-    @Path("{diadiemID}")
+    @Path("{banID}")
     @Produces(MediaType.APPLICATION_JSON)
     
-    public Response getDiadiemById(@PathParam("diadiemID") int diadiem_id) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
+    public Response getBanById(@PathParam("banID") int ban_id) {
+        BanDAO dao = new BanDAO();
+        BanDTO dto = dao.getBanById(ban_id);
         if(dto != null) {
             return Response.ok().entity(dto).header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -46,10 +46,10 @@ public class DiadiemBUS {
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     
-    public Response addDiadiem(DiadiemDTO diadiemJSON) {
-        DiadiemDAO dao = new DiadiemDAO();
-        if(dao.checkDiadiemOwnerEmail(diadiemJSON.getOwner_email())) {
-            int result = dao.addDiadiem(diadiemJSON);
+    public Response addBan(BanDTO banJSON) {
+        BanDAO dao = new BanDAO();
+        //if(dao.checkBanEmail(banJSON.getEmail())) {
+            int result = dao.addBan(banJSON);
             if(result != -1) {
                 return Response.status(Response.Status.CREATED).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -59,24 +59,25 @@ public class DiadiemBUS {
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                 .allow("OPTIONS").build(); //nếu thêm thất bại thì return status code 404
             }
-        } else {
-            return Response.status(Response.Status.CONFLICT).header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .allow("OPTIONS").build(); //nếu email đã đăng ký rồi thì return status code 409, frontend xử lý vấn đề này.
-        }
+            //để dành chỗ sau này check mỗi địa điểm chỉ có 1 bàn
+//        } else {
+//            return Response.status(Response.Status.CONFLICT).header("Access-Control-Allow-Origin", "*")
+//                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+//                .allow("OPTIONS").build(); //nếu email đã đăng ký rồi thì return status code 409, frontend xử lý vấn đề này.
+//        }
     }
     
     @PUT
-    @Path("{diadiemID}")
+    @Path("{banID}")
     @Consumes(MediaType.APPLICATION_JSON)
     
-    public Response updateDiadiem(@PathParam("diadiemID") int diadiem_id, DiadiemDTO diadiemJSON) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
-        diadiemJSON.setDiadiemId(diadiem_id);
+    public Response updateBan(@PathParam("banID") int ban_id, BanDTO banJSON) {
+        BanDAO dao = new BanDAO();
+        BanDTO dto = dao.getBanById(ban_id);
+        banJSON.setBanId(ban_id);
         if(dto != null) {
-            if(dto.getOwner_email().equals(diadiemJSON.getOwner_email())) {
-                boolean result = dao.updateDiadiem(diadiemJSON);
+//            if(dto.getUsername().equals(banJSON.getUsername())) {
+                boolean result = dao.updateBan(banJSON);
                 System.out.println(result);
                 if(result) {
                     return Response.ok().header("Access-Control-Allow-Origin", "*")
@@ -87,11 +88,11 @@ public class DiadiemBUS {
                     .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
                     .allow("OPTIONS").build(); //nếu sửa thất bại thì return status code 404
                 }
-            } else {
-                return Response.status(Response.Status.FORBIDDEN).header("Access-Control-Allow-Origin", "*")
-                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-                .allow("OPTIONS").build(); //nếu email không khớp với ID thì return 403
-            }
+//            } else {
+//                return Response.status(Response.Status.FORBIDDEN).header("Access-Control-Allow-Origin", "*")
+//                .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+//                .allow("OPTIONS").build(); //nếu email không khớp với ID thì return 403
+//            }
         } else {
             return Response.status(Response.Status.NO_CONTENT).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -100,14 +101,14 @@ public class DiadiemBUS {
     }
     
     @DELETE
-    @Path("{diadiemID}")
+    @Path("{banID}")
 //    @Produces(MediaType.APPLICATION_JSON)
     
-    public Response deleteDiadiemById(@PathParam("diadiemID") int diadiem_id) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
+    public Response deleteBanById(@PathParam("banID") int ban_id) {
+        BanDAO dao = new BanDAO();
+        BanDTO dto = dao.getBanById(ban_id);
         if(dto != null) {
-            boolean result = dao.deleteDiadiem(diadiem_id);
+            boolean result = dao.deleteBan(ban_id);
             if(result) {
                 return Response.ok().header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -123,6 +124,4 @@ public class DiadiemBUS {
                 .allow("OPTIONS").build(); //nếu không xóa đuợc thì return 404
         }
     }
-    
-    
 }

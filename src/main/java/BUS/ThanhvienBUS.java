@@ -5,8 +5,12 @@
  */
 package BUS;
 
-import DAO.DiadiemDAO;
-import DTO.DiadiemDTO;
+import DAO.ThanhvienDAO;
+import DAO.ThanhvienDAO;
+import DAO.ThanhvienDAO;
+import DTO.ThanhvienDTO;
+import DTO.ThanhvienDTO;
+import DTO.ThanhvienDTO;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -23,14 +27,14 @@ import javax.ws.rs.core.Response;
  * @author Administrator
  */
 @Path("/")
-public class DiadiemBUS {
+public class ThanhvienBUS {
     @GET
-    @Path("{diadiemID}")
+    @Path("{thanhvienID}")
     @Produces(MediaType.APPLICATION_JSON)
     
-    public Response getDiadiemById(@PathParam("diadiemID") int diadiem_id) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
+    public Response getThanhvienById(@PathParam("thanhvienID") int thanhvien_id) {
+        ThanhvienDAO dao = new ThanhvienDAO();
+        ThanhvienDTO dto = dao.getThanhvienById(thanhvien_id);
         if(dto != null) {
             return Response.ok().entity(dto).header("Access-Control-Allow-Origin", "*")
             .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -46,10 +50,10 @@ public class DiadiemBUS {
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     
-    public Response addDiadiem(DiadiemDTO diadiemJSON) {
-        DiadiemDAO dao = new DiadiemDAO();
-        if(dao.checkDiadiemOwnerEmail(diadiemJSON.getOwner_email())) {
-            int result = dao.addDiadiem(diadiemJSON);
+    public Response addThanhvien(ThanhvienDTO thanhvienJSON) {
+        ThanhvienDAO dao = new ThanhvienDAO();
+        if(dao.checkThanhvienEmail(thanhvienJSON.getEmail())) {
+            int result = dao.addThanhvien(thanhvienJSON);
             if(result != -1) {
                 return Response.status(Response.Status.CREATED).header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -67,16 +71,16 @@ public class DiadiemBUS {
     }
     
     @PUT
-    @Path("{diadiemID}")
+    @Path("{thanhvienID}")
     @Consumes(MediaType.APPLICATION_JSON)
     
-    public Response updateDiadiem(@PathParam("diadiemID") int diadiem_id, DiadiemDTO diadiemJSON) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
-        diadiemJSON.setDiadiemId(diadiem_id);
+    public Response updateThanhvien(@PathParam("thanhvienID") int thanhvien_id, ThanhvienDTO thanhvienJSON) {
+        ThanhvienDAO dao = new ThanhvienDAO();
+        ThanhvienDTO dto = dao.getThanhvienById(thanhvien_id);
+        thanhvienJSON.setThanhvienId(thanhvien_id);
         if(dto != null) {
-            if(dto.getOwner_email().equals(diadiemJSON.getOwner_email())) {
-                boolean result = dao.updateDiadiem(diadiemJSON);
+            if(dto.getUsername().equals(thanhvienJSON.getUsername())) {
+                boolean result = dao.updateThanhvien(thanhvienJSON);
                 System.out.println(result);
                 if(result) {
                     return Response.ok().header("Access-Control-Allow-Origin", "*")
@@ -100,14 +104,14 @@ public class DiadiemBUS {
     }
     
     @DELETE
-    @Path("{diadiemID}")
+    @Path("{thanhvienID}")
 //    @Produces(MediaType.APPLICATION_JSON)
     
-    public Response deleteDiadiemById(@PathParam("diadiemID") int diadiem_id) {
-        DiadiemDAO dao = new DiadiemDAO();
-        DiadiemDTO dto = dao.getDiadiemById(diadiem_id);
+    public Response deleteThanhvienById(@PathParam("thanhvienID") int thanhvien_id) {
+        ThanhvienDAO dao = new ThanhvienDAO();
+        ThanhvienDTO dto = dao.getThanhvienById(thanhvien_id);
         if(dto != null) {
-            boolean result = dao.deleteDiadiem(diadiem_id);
+            boolean result = dao.deleteThanhvien(thanhvien_id);
             if(result) {
                 return Response.ok().header("Access-Control-Allow-Origin", "*")
                 .header("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
@@ -123,6 +127,4 @@ public class DiadiemBUS {
                 .allow("OPTIONS").build(); //nếu không xóa đuợc thì return 404
         }
     }
-    
-    
 }
