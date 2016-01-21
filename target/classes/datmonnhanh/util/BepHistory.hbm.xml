@@ -22,5 +22,8 @@
     <property name="monAnCompleteTime" type="timestamp">
       <column length="19" name="MonAn_CompleteTime"/>
     </property>
+    <property name="date" type="timestamp">
+      <column length="19" name="Date"/>
+    </property>
   </class>
 </hibernate-mapping>

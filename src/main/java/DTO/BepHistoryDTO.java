@@ -16,16 +16,18 @@ public class BepHistoryDTO  implements java.io.Serializable {
      private Short monAnQuantity;
      private Date monAnOrderTime;
      private Date monAnCompleteTime;
+     private Date date;
 
     public BepHistoryDTO() {
     }
 
-    public BepHistoryDTO(BepDTO bep, String monAnName, Short monAnQuantity, Date monAnOrderTime, Date monAnCompleteTime) {
+    public BepHistoryDTO(BepDTO bep, String monAnName, Short monAnQuantity, Date monAnOrderTime, Date monAnCompleteTime, Date date) {
        this.bep = bep;
        this.monAnName = monAnName;
        this.monAnQuantity = monAnQuantity;
        this.monAnOrderTime = monAnOrderTime;
        this.monAnCompleteTime = monAnCompleteTime;
+       this.date = date;
     }
    
     public Integer getBepHistoryId() {
@@ -71,8 +73,13 @@ public class BepHistoryDTO  implements java.io.Serializable {
         this.monAnCompleteTime = monAnCompleteTime;
     }
 
+    public Date getDate() {
+        return date;
+    }
 
-
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
 }
 
