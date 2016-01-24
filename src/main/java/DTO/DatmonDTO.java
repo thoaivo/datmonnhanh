@@ -10,12 +10,40 @@ package DTO;
  * @author Administrator
  */
 public class DatmonDTO {
+    private int diadiemId;
+    private int bepId;
     private int menuChitietId;
     private String name;
     private int quantity;
     private int banId;
     private int price;
+    private String status;
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getDiadiemId() {
+        return diadiemId;
+    }
+
+    public void setDiadiemId(int diadiemId) {
+        this.diadiemId = diadiemId;
+    }
+
+    public int getBepId() {
+        return bepId;
+    }
+
+    public void setBepId(int quanId) {
+        this.bepId = quanId;
+    }
+
+    
     public int getMenuChitietId() {
         return menuChitietId;
     }
@@ -55,7 +83,4 @@ public class DatmonDTO {
     public void setPrice(int price) {
         this.price = price;
     }
-
-    
-    
 }
