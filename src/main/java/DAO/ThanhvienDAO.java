@@ -6,6 +6,7 @@
 package DAO;
 
 import DTO.ThanhvienDTO;
+import DTO.LogginSessionDTO;
 import datmonnhanh.util.HibernateUtil;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -122,5 +123,64 @@ public class ThanhvienDAO {
             session.close();
         }
         return false;
+    }
+    
+    public String logginThanhVien(String username, String password){
+        if(!isSessionTimeout(username))
+            return getSesstionKey(username);
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            Criteria cr = session.createCriteria(ThanhvienDTO.class);
+            cr.add(Restrictions.eq("username", username));
+            cr.add(Restrictions.eq("password", password));
+            if (!cr.list().isEmpty()) {
+                return getSesstionKey(username);
+            }
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return "";
+    }
+    
+    public boolean isSessionTimeout(String username){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            Criteria cr = session.createCriteria(LogginSessionDTO.class);
+            cr.add(Restrictions.eq("username", username));
+            if (cr.list().size() == 1) {
+                return true;
+            }
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+    
+    public String getSesstionKey(String username){
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        try {
+            Criteria cr = session.createCriteria(LogginSessionDTO.class);
+            cr.add(Restrictions.eq("username", username));
+            LogginSessionDTO dto = null;
+            if (cr.list().size() == 1) {
+                dto = (LogginSessionDTO) cr.list().get(0);
+                return dto.getKey();
+            }else{
+                //TODO: generate new key for current user
+                return "1";                
+            }
+        } catch (HibernateException e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return "";
     }
 }
